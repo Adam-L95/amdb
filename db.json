@@ -1,0 +1,130 @@
+{
+    "movies": [
+    {
+      "id": 1,
+      "title": "Pulp Fiction", 
+      "year": 1994,
+      "details": {
+        "country": "United States", 
+        "genres": [
+            "Crime",
+            "Thriller"
+        ],
+        "description": "A burger-loving hit man, his philosophical partner, a drug-addled gangster’s moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time."
+      },
+      "crew": {
+        "director": "Quentin Tarantino",
+        "cast": [
+          {
+            "name": "John Travolta", 
+            "role": "Vincent Vega" 
+          },
+          {
+            "name": "Samuel L. Jackson",
+            "role": "Jules Winnfield"
+          }
+        ]
+      }
+    },
+    {
+        "id": 2,
+        "title": "Fight Club", 
+        "year": 1999,
+        "details": {
+          "country": "United States", 
+          "genres": [
+            "Drama"
+          ],
+          "description": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground “fight clubs” forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
+        },
+        "crew": {
+          "director": "David Fincher",
+          "cast": [
+            {
+              "name": "Edward Norton", 
+              "role": "The Narrator" 
+            },
+            {
+              "name": "Brad Pitt",
+              "role": "Tyler Durden"
+            }
+          ]
+        }
+      },
+      {
+        "id": 3,
+        "title": "GoodFellas", 
+        "year": 1990,
+        "details": {
+          "country": "United States", 
+          "genres": [
+              "Crime",
+              "Drama"
+          ],
+          "description": "The true story of Henry Hill, a half-Irish, half-Sicilian Brooklyn kid who is adopted by neighbourhood gangsters at an early age and climbs the ranks of a Mafia family under the guidance of Jimmy Conway."
+        },
+        "crew": {
+          "director": "Martin Scorsese",
+          "cast": [
+            {
+              "name": "Ray Liotta", 
+              "role": "Henry Hill" 
+            },
+            {
+              "name": "Robert De Niro",
+              "role": "James Conway"
+            }
+          ]
+        }
+      },
+      {
+          "id": 4,
+          "title": "Paths of Glory", 
+          "year": 1957,
+          "details": {
+            "country": "United States", 
+            "genres": [
+              "Drama", "War"
+            ],
+            "description": "A commanding officer defends three scapegoats on trial for a failed offensive that occurred within the French Army in 1916."
+          },
+          "crew": {
+            "director": "Stanley Kubrick",
+            "cast": [
+              {
+                "name": "Kirk Douglas", 
+                "role": "Col. Dax" 
+              },
+              {
+                "name": "Ralph Meeker",
+                "role": "Cpl. Philippe Paris"
+              }
+            ]
+          }
+        }
+    ],
+  "users": [
+    {
+      "id": 1,
+      "username": "Root",
+      "watchlist": [
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        }
+      ],
+      "diary": [
+        {
+          "date": "2020-09-08T19:14:40.301Z",
+          "id": 3
+        },
+        {
+          "date": "2020-09-08T19:17:06.264Z",
+          "id": 4
+        }
+      ]
+    }
+  ]
+}
