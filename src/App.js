@@ -3,7 +3,6 @@ import Menu from './components/Menu';
 import SearchBar from './components/SearchBar';
 import SearchDisplay from './components/SearchDisplay';
 import MovieInfo from './components/MovieInfo';
-// import { Router, Route, Switch, Link, useHistory } from "react-router-dom";
 import movieService from './services/movies';
 import loginService from './services/login';
 
