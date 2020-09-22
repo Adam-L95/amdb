@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieSearchDisplay from './MovieSearchDisplay';
 
-const SearchDisplay = ({ movies, setMovieToView, setPage }) => {
+const SearchDisplay = ({ movies, setMovieToView, setPage, watchlist, setWatchlist }) => {
     // const resultsToShow = props.movies.filter(movie => movie.title.includes(props.query));
 
     if (movies.length === 0){
@@ -15,12 +15,14 @@ const SearchDisplay = ({ movies, setMovieToView, setPage }) => {
                     a.popularity < b.popularity ? 1 : a.popularity > b.popularity ? -1 : 0)
                     .map(movie => <MovieSearchDisplay key={movie.id}
                         title={movie.title}
-                        releaseDate={movie.release_date}
-                        description={movie.overview}
-                        posterSource={movie.poster_path}
+                        release_date={movie.release_date}
+                        // description={movie.overview}
+                        poster_path={movie.poster_path}
                         id={movie.id}
                         setMovieToView={setMovieToView}
-                        setPage={setPage}/>)}
+                        setPage={setPage}
+                        watchlist={watchlist}
+                        setWatchlist={setWatchlist}/>)}
             </div>
         );
     }

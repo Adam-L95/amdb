@@ -23,6 +23,7 @@ const Menu = (props) => {
                         <a href="/#" onClick={toPage('home')} style={padding}>Home</a>
                         <a href="/#" onClick={toPage('search')} style={padding}>Search</a>
                         <a href="/#" onClick={toPage('watchlist')} style={padding}>Watchlist ({props.watchlist.length})</a>
+                        <a href="/#" onClick={toPage('diary')} style={padding}>Diary ({props.diary.length})</a>
                     </div>
                 </ul>
             </nav>

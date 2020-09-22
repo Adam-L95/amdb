@@ -3,47 +3,70 @@ import Menu from './components/Menu';
 import SearchBar from './components/SearchBar';
 import SearchDisplay from './components/SearchDisplay';
 import MovieInfo from './components/MovieInfo';
+import Watchlist from './components/Watchlist';
+import Diary from './components/Diary';
 import movieService from './services/movies';
 import loginService from './services/login';
+import userService from './services/user';
+import LoginForm from './components/LoginForm';
 
 
 const App = () => {
     const [movies, setMovies] = useState([]);
     const [user, setUser] = useState(null);
     const [watchlist, setWatchlist] = useState([]);
-    const [wlIds, setwlIds] = useState([]);
-    const [query, setQuery] = useState('');
+    const [diary, setDiary] = useState([]);
     const [page, setPage] = useState('home');
     const [movieToView, setMovieToView] = useState(null);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    // useEffect(() => {
-    //   movieService.getAll().then(movies => setMovies(movies));
+    const handleLogin = async (event) => {
+        event.preventDefault();
 
-    // }, []);
+        try {
+            const user = await loginService.login({
+                username, password
+            });
 
-    // useEffect(() => {
-    //   loginService.login().then(user => setUser(user));
-    // }, []);
+            window.localStorage.setItem('loggedMovieAppUser', JSON.stringify(user));
+            movieService.setToken(user.token);
 
-    // useEffect(() => {
-    //   if (user && movies) {
-    //     const watchlistIds = user.watchlist.map(movie => movie.id);
-    //     const wl = movies.filter(movie => watchlistIds.includes(movie.id));
-    //     setwlIds(watchlistIds);
-    //     setWatchlist(wl);
-    //   }
-    // }, [user, movies]);
+            userService.setToken(user.token);
+
+            console.log(user);
+
+            setUser(user);
+            setWatchlist(user.watchlist);
+            // console.log(user.watchlist);
+            // console.log(watchlist);
+            // console.log(user.watchlist.filter(entry => entry.movieId === 346));
+            setDiary(user.diary);
+            setUsername('');
+            setPassword('');
+        } catch (exception) {
+            console.log(exception);
+        }
+
+    };
 
 
-    // if (user === null) {
-    //   return (
-    //     <div>
-    //       <h2>
-    //         log in to application
-    //       </h2>
-    //     </div>
-    //   );
-    // }
+    if (user === null) {
+        return (
+            <div>
+                <h2>
+                    Log in to application
+                </h2>
+                <LoginForm
+                    username={username}
+                    password={password}
+                    handleUsernameChange={({ target }) => setUsername(target.value)}
+                    handlePasswordChange={({ target }) => setPassword(target.value)}
+                    handleSubmit={handleLogin}
+                />
+            </div>
+        );
+    }
 
     const content = () => {
         if (page === 'home') {
@@ -52,20 +75,31 @@ const App = () => {
             return (
                 <div>
                     <SearchBar setMovies={setMovies} />
-                    <SearchDisplay movies={movies} setPage={setPage} setMovieToView={setMovieToView} />
+                    <SearchDisplay movies={movies}
+                        setPage={setPage}
+                        setMovieToView={setMovieToView}
+                        watchlist={watchlist}
+                        setWatchlist={setWatchlist}/>
                 </div>
             );
         } else if (page === 'watchlist') {
-            return <div></div>;
+            return <Watchlist watchlist={watchlist} setMovieToView={setMovieToView} setPage={setPage} />;
         } else if (page === 'movie') {
-            return <MovieInfo id={movieToView} />;
+            return <MovieInfo id={movieToView} watchlist={watchlist} setWatchlist={setWatchlist} setDiary={setDiary} />;
+        } else if (page === 'diary') {
+            return <Diary diary={diary} setMovieToView={setMovieToView} setPage={setPage} />;
         }
     };
 
     return (
         <div>
             <h1>AMDb</h1>
-            <Menu username={'root'} watchlist={watchlist} setPage={setPage} setMovies={setMovies} setMovieToView={setMovieToView} />
+            <Menu username={user.username}
+                watchlist={watchlist}
+                diary={diary}
+                setPage={setPage}
+                setMovies={setMovies}
+                setMovieToView={setMovieToView} />
             {content()}
             <footer>
                 <em>Adam Lapinski, 2020.

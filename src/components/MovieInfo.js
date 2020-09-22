@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import WatchlistButton from './WatchlistButton';
+import DiaryButton from './DiaryButton';
 import movieService from '../services/movies';
 
-const MovieInfo = ({ id }) => {
+const MovieInfo = ({ id, watchlist, setWatchlist, setDiary }) => {
     const [details, setDetails] = useState({});
     const [credits, setCredits] = useState({});
     const [view, setView] = useState('cast');
@@ -92,7 +94,8 @@ const MovieInfo = ({ id }) => {
                 <h2>{details.title}</h2>
                 <img src={`http://image.tmdb.org/t/p/w185/${details.poster_path}`} alt="poster"></img>
             </div>
-            <button>add to watchlist</button>
+            <DiaryButton id={details.id} title={details.title} poster_path={details.poster_path} release_date={details.release_date} watchlist={watchlist} setWatchlist={setWatchlist} setDiary={setDiary} />
+            <WatchlistButton id={details.id} title={details.title} poster_path={details.poster_path} release_date={details.release_date} watchlist={watchlist} setWatchlist={setWatchlist} />
             <div>
                 <button onClick={toView('cast')}>Cast</button>
                 <button onClick={toView('crew')}>Crew</button>

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3001/users/1';
+const baseUrl = '/api/login';
 
-const login = () => {
-    const request = axios.get(url);
-    return request.then(response => response.data);
+const login = async credentials => {
+    const response = await axios.post(baseUrl, credentials);
+    return response.data;
 };
 
 export default { login };
