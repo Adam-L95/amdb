@@ -1,7 +1,8 @@
 import React from 'react';
 import userService from '../services/user';
+import { Button } from 'react-bootstrap';
 
-const DiaryButton = ({ id, title, poster_path, release_date, watchlist, setWatchlist, setDiary }) => {
+const DiaryButton = ({ id, title, poster_path, release_date, setWatchlist, setDiary, setNotify }) => {
     const handleLog = (event) => {
         event.preventDefault();
         const toAdd = {
@@ -33,7 +34,7 @@ const DiaryButton = ({ id, title, poster_path, release_date, watchlist, setWatch
 
     return (
         <div>
-            <button onClick={handleLog}>Log film</button>
+            <Button variant="success" onClick={handleLog}>Log film</Button>
         </div>
     );
 };

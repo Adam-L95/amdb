@@ -1,6 +1,7 @@
 import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 
-const Watchlist = ({ watchlist, setMovieToView, setPage }) => {
+const Watchlist = ({ username, watchlist, setMovieToView, setPage }) => {
     const displayPoster = (posterSource) => {
         if (posterSource) {
             return <img src={`http://image.tmdb.org/t/p/w92/${posterSource}`} alt={'poster'}/>;
@@ -15,17 +16,16 @@ const Watchlist = ({ watchlist, setMovieToView, setPage }) => {
 
     return (
         <div>
-            <ul>
+            <h3>Your Watchlist</h3>
+            <ListGroup >
                 {watchlist.map(item =>
-                    <a href="/#" onClick={toMovie(item)} key ={item.movieId}>
-                        <li>
-                            {displayPoster(item.posterPath)}
-                            <h3>{item.title} ({item.releaseDate ? item.releaseDate.split('-')[0] : 'unreleased'}) </h3>
-                        </li>
-                    </a>
+                    <ListGroup.Item action href="/#" onClick={toMovie(item)} key ={item.movieId}>
+                        {displayPoster(item.posterPath)}
+                        <h3>{item.title} ({item.releaseDate ? item.releaseDate.split('-')[0] : 'unreleased'}) </h3>
+                    </ListGroup.Item>
                 )
                 }
-            </ul>
+            </ListGroup>
         </div>
     );
 };

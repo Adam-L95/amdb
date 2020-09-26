@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 const LoginForm = (props) => {
 
@@ -7,8 +8,28 @@ const LoginForm = (props) => {
             <h2>
                 Login
             </h2>
-            <form onSubmit={props.handleSubmit}>
-                <div>
+            <Form onSubmit={props.handleSubmit}>
+                <Form.Group>
+                    <Form.Label>username:</Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="username"
+                        value={props.username}
+                        name="Username"
+                        onChange={props.handleUsernameChange}
+                    />
+
+                    <Form.Label>password:</Form.Label>
+                    <Form.Control
+                        type="password"
+                        id="password"
+                        value={props.password}
+                        name="Password"
+                        onChange={props.handlePasswordChange}
+                    />
+                    <Button variant="primary" id="login-button" type="submit">login</Button>
+                </Form.Group>
+                {/* <div>
                     <input
                         type="text"
                         id="username"
@@ -25,9 +46,8 @@ const LoginForm = (props) => {
                         name="Password"
                         onChange={props.handlePasswordChange}
                     />
-                </div>
-                <button id="login-button" type="submit">login</button>
-            </form>
+                </div> */}
+            </Form>
         </div>
     );
 };

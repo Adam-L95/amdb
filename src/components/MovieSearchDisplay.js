@@ -1,7 +1,8 @@
 import React from 'react';
 import WatchlistButton from './WatchlistButton';
+import { ListGroup } from 'react-bootstrap';
 
-const MovieSearchDisplay = ({ title, release_date, poster_path, id, setPage, setMovieToView, watchlist, setWatchlist }) => {
+const MovieSearchDisplay = ({ title, release_date, poster_path, id, setPage, setMovieToView, watchlist, setWatchlist, setNotify }) => {
     const displayPoster = (posterSource) => {
         if (posterSource) {
             return <img src={`http://image.tmdb.org/t/p/w92/${posterSource}`} alt={`movie #${id} poster`}/>;
@@ -15,7 +16,7 @@ const MovieSearchDisplay = ({ title, release_date, poster_path, id, setPage, set
     };
 
     return (
-        <div>
+        <ListGroup.Item>
             <a href="/#" onClick={toMovie}>
                 <h3>
                     {displayPoster(poster_path)}
@@ -38,9 +39,10 @@ const MovieSearchDisplay = ({ title, release_date, poster_path, id, setPage, set
                     poster_path={poster_path}
                     release_date={release_date}
                     watchlist={watchlist}
-                    setWatchlist={setWatchlist} />
+                    setWatchlist={setWatchlist}
+                    setNotify={setNotify} />
             </div>
-        </div>
+        </ListGroup.Item>
     );
 };
 
