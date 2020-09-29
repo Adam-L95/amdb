@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// Components
 import Menu from './components/Menu';
 import SearchBar from './components/SearchBar';
 import SearchDisplay from './components/SearchDisplay';
@@ -9,29 +10,34 @@ import Notification from './components/Notification';
 import Error from './components/Error';
 import LoginForm from './components/LoginForm';
 import CreateUserForm from './components/CreateUserForm';
-
+// Services
 import movieService from './services/movies';
 import loginService from './services/login';
 import userService from './services/user';
 import createUserService from './services/createUser';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 const App = () => {
+    // Logged in user states
     const [movies, setMovies] = useState([]);
     const [user, setUser] = useState(null);
     const [watchlist, setWatchlist] = useState([]);
     const [diary, setDiary] = useState([]);
+    // Page states
     const [page, setPage] = useState('home');
     const [movieToView, setMovieToView] = useState(null);
+    // Log in/Create user page states. These are reset once the user is logged in
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [name, setName] = useState('');
+    // Notification states
     const [errorMessage, setErrorMessage] = useState(null);
     const [notifyMessage, setNotifyMessage] = useState(null);
 
     useEffect(() => {
+        // Takes token from the browser's local storage and logs in user
         const loggedUserJSON = window.localStorage.getItem('loggedMovieAppUser');
         if (loggedUserJSON) {
             const user = JSON.parse(loggedUserJSON);
@@ -43,6 +49,26 @@ const App = () => {
         }
     }, []);
 
+    const logUser = (userToLog) => {
+        // Sets the user states, log in message, and tokens in services
+        window.localStorage.setItem('loggedMovieAppUser', JSON.stringify(userToLog));
+        movieService.setToken(userToLog.token);
+
+        userService.setToken(userToLog.token);
+        setUser(userToLog);
+        setWatchlist(userToLog.watchlist);
+        setDiary(userToLog.diary);
+        setUsername('');
+        setPassword('');
+        setPassword2('');
+        setName('');
+        setPage('home');
+        setNotifyMessage(`welcome ${userToLog.name}`);
+        setTimeout (() => {
+            setNotifyMessage(null);
+        }, 5000);
+    };
+
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -50,26 +76,7 @@ const App = () => {
             const user = await loginService.login({
                 username, password
             });
-
-            window.localStorage.setItem('loggedMovieAppUser', JSON.stringify(user));
-            movieService.setToken(user.token);
-
-            userService.setToken(user.token);
-
-            // console.log(user);
-
-            setUser(user);
-            setWatchlist(user.watchlist);
-            // console.log(user.watchlist);
-            // console.log(watchlist);
-            // console.log(user.watchlist.filter(entry => entry.movieId === 346));
-            setDiary(user.diary);
-            setUsername('');
-            setPassword('');
-            setNotifyMessage(`welcome ${user.name}`);
-            setTimeout (() => {
-                setNotifyMessage(null);
-            }, 5000);
+            logUser(user);
         } catch (exception) {
             setErrorMessage('Invalid username or password');
             setTimeout(() => {
@@ -83,6 +90,8 @@ const App = () => {
         event.preventDefault();
 
         if (password !== password2) {
+            // checks if the password and confirmation password are identical
+            // resets both when if statement fails
             setErrorMessage('the passwords do not match');
             setPassword('');
             setPassword2('');
@@ -98,29 +107,7 @@ const App = () => {
                 const user = await loginService.login({
                     username, password
                 });
-
-                window.localStorage.setItem('loggedMovieAppUser', JSON.stringify(user));
-                movieService.setToken(user.token);
-
-                userService.setToken(user.token);
-
-                console.log(user);
-
-                setUser(user);
-                setWatchlist(user.watchlist);
-                // console.log(user.watchlist);
-                // console.log(watchlist);
-                // console.log(user.watchlist.filter(entry => entry.movieId === 346));
-                setDiary(user.diary);
-                setUsername('');
-                setPassword('');
-                setPassword2('');
-                setName('');
-                setPage('home');
-                setNotifyMessage(`welcome ${user.name}`);
-                setTimeout (() => {
-                    setNotifyMessage(null);
-                }, 5000);
+                logUser(user);
             } catch (exception) {
                 setErrorMessage('User already exists');
                 console.log(exception.message);
@@ -140,6 +127,7 @@ const App = () => {
     };
 
     if (user === null) {
+        // if the user is not logged this renders either the user creation or user log in form
         if (page === 'newUser') {
             return (
                 <div className="container">
@@ -182,6 +170,14 @@ const App = () => {
     }
 
     const content = () => {
+        /*
+            Main Content of the site
+
+            The components are rendered depending on which state 'setPage' is currently in.
+
+            Homepage currently does not show anything as of 9/29/20.
+
+        */
         if (page === 'home') {
             return <div>Home Page</div>;
         } else if (page === 'search') {
