@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3001/api/userServices';
+const url = '/api/userServices';
 
 let token = null;
 

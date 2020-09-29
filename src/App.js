@@ -7,10 +7,13 @@ import Watchlist from './components/Watchlist';
 import Diary from './components/Diary';
 import Notification from './components/Notification';
 import Error from './components/Error';
+import LoginForm from './components/LoginForm';
+import CreateUserForm from './components/CreateUserForm';
+
 import movieService from './services/movies';
 import loginService from './services/login';
 import userService from './services/user';
-import LoginForm from './components/LoginForm';
+import createUserService from './services/createUser';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
@@ -23,6 +26,8 @@ const App = () => {
     const [movieToView, setMovieToView] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [name, setName] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [notifyMessage, setNotifyMessage] = useState(null);
 
@@ -51,7 +56,7 @@ const App = () => {
 
             userService.setToken(user.token);
 
-            console.log(user);
+            // console.log(user);
 
             setUser(user);
             setWatchlist(user.watchlist);
@@ -74,6 +79,60 @@ const App = () => {
 
     };
 
+    const handleNewUser = async (event) => {
+        event.preventDefault();
+
+        if (password !== password2) {
+            setErrorMessage('the passwords do not match');
+            setPassword('');
+            setPassword2('');
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 5000);
+        } else {
+            try {
+                await createUserService.createUser({
+                    username, name, password
+                });
+
+                const user = await loginService.login({
+                    username, password
+                });
+
+                window.localStorage.setItem('loggedMovieAppUser', JSON.stringify(user));
+                movieService.setToken(user.token);
+
+                userService.setToken(user.token);
+
+                console.log(user);
+
+                setUser(user);
+                setWatchlist(user.watchlist);
+                // console.log(user.watchlist);
+                // console.log(watchlist);
+                // console.log(user.watchlist.filter(entry => entry.movieId === 346));
+                setDiary(user.diary);
+                setUsername('');
+                setPassword('');
+                setPassword2('');
+                setName('');
+                setPage('home');
+                setNotifyMessage(`welcome ${user.name}`);
+                setTimeout (() => {
+                    setNotifyMessage(null);
+                }, 5000);
+            } catch (exception) {
+                setErrorMessage('User already exists');
+                console.log(exception.message);
+                setTimeout(() => {
+                    setErrorMessage(null);
+                }, 5000);
+            }
+
+        }
+
+    };
+
     const handleLogout = (event) => {
         event.preventDefault();
         window.localStorage.removeItem('loggedMovieAppUser');
@@ -81,21 +140,45 @@ const App = () => {
     };
 
     if (user === null) {
-        return (
-            <div className="container">
-                <h2>
-                    Log in to application
-                </h2>
-                <Error message={errorMessage} />
-                <LoginForm
-                    username={username}
-                    password={password}
-                    handleUsernameChange={({ target }) => setUsername(target.value)}
-                    handlePasswordChange={({ target }) => setPassword(target.value)}
-                    handleSubmit={handleLogin}
-                />
-            </div>
-        );
+        if (page === 'newUser') {
+            return (
+                <div className="container">
+                    <h2>
+                        Create an account
+                    </h2>
+                    <Error message={errorMessage} />
+                    <CreateUserForm
+                        username={username}
+                        password={password}
+                        password2={password2}
+                        name={name}
+                        handleUsernameChange={({ target }) => setUsername(target.value)}
+                        handleNameChange={({ target }) => setName(target.value)}
+                        handlePasswordChange={({ target }) => setPassword(target.value)}
+                        handlePassword2Change={({ target }) => setPassword2(target.value)}
+                        handleSubmit={handleNewUser}
+                    />
+                    <a href="/#" onClick={() => setPage('home')}>Back to log in</a>
+                </div>
+            );
+        } else {
+            return (
+                <div className="container">
+                    <h2>
+                        Log in to application
+                    </h2>
+                    <Error message={errorMessage} />
+                    <LoginForm
+                        username={username}
+                        password={password}
+                        handleUsernameChange={({ target }) => setUsername(target.value)}
+                        handlePasswordChange={({ target }) => setPassword(target.value)}
+                        handleSubmit={handleLogin}
+                    />
+                    <a href="/#" onClick={() => setPage('newUser')}>Create an account</a>
+                </div>
+            );
+        }
     }
 
     const content = () => {

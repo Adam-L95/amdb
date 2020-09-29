@@ -16,10 +16,10 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
 
     useEffect(() => {
         movieService.getSelected(id).then(detail => {
-            console.log(detail);
+            // console.log(detail);
             setDetails(detail);});
         movieService.getCredits(id).then(credit => {
-            console.log(credit);
+            // console.log(credit);
             setCredits(credit);});
     }, [id]);
 

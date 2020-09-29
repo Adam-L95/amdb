@@ -20,7 +20,7 @@ const getSelected = (id) => {
 
 const searchFor = (title) => {
     const searchURL = `${url}/${title.replace(/\s+/g, '+')}`;
-    console.log(searchURL);
+    // console.log(searchURL);
     const request = axios.get(searchURL);
     // console.log(request);
     // const results = request.then(response => response.data);
