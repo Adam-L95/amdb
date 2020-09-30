@@ -10,16 +10,10 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
     const [view, setView] = useState('cast');
     const [viewAll, setViewAll] = useState(false);
 
-    // const Mid = useParams().id;
-    // console.log(Mid);
-    // const id = Number(Mid);
-
     useEffect(() => {
         movieService.getSelected(id).then(detail => {
-            // console.log(detail);
             setDetails(detail);});
         movieService.getCredits(id).then(credit => {
-            // console.log(credit);
             setCredits(credit);});
     }, [id]);
 
@@ -82,11 +76,6 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
         if (credits.crew) {
             return (
                 <ListGroup>
-                    {/* <ListGroup.Item>
-                        Director ... {credits.crew.filter(credit => credit.job === 'Director')[0].name}
-                    </ListGroup.Item> */}
-                    {/* <li>Writer - {credits.crew.filter(credit => credit.job === 'Screenplay')[0].name}</li> */}
-                    {/* <li>Editor - {credits.crew.filter(credit => credit.job === 'Editor')[0].name}</li> */}
                     {credits.crew.slice(0, 20).map(credit =>
                         <ListGroup.Item key={credit.credit_id}>{credit.job} ... {credit.name}</ListGroup.Item>)}
                 </ListGroup>
@@ -102,7 +91,6 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
         if (details) {
             return (
                 <ListGroup>
-                    {/* <ListGroup.Item>{details.overview}</ListGroup.Item> */}
                     <ListGroup.Item>Release date: {details.release_date}</ListGroup.Item>
                     <ListGroup.Item>
                         <ListGroup>
@@ -233,10 +221,6 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
                     setNotify={setNotifyMessage}
                     setError={setErrorMessage} />
                 <ButtonGroup toggle>
-                    {/* <Button variant="secondary" onClick={toView('cast')}>Cast</Button>
-                    <Button variant="secondary" onClick={toView('crew')}>Crew</Button>
-                    <Button variant="secondary" onClick={toView('details')}>Details</Button>
-                    <Button variant="secondary" onClick={toView('genre')}>Genre</Button> */}
                     {radios.map((radio, index) => (
                         <ToggleButton key={index}
                             type="radio"

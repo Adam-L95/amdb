@@ -26,10 +26,6 @@ const WatchlistButton = ({ id, title, poster_path, release_date, watchlist, setW
 
 
     };
-    // console.log(id);
-    // console.log(watchlist);
-    // console.log(watchlist.filter(entry => entry.movieId === id).length);
-
     const handleRemove = (event) => {
         event.preventDefault();
         setError(`'${title}' has been removed from your watchlist`);

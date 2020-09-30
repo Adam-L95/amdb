@@ -206,65 +206,6 @@ const App = () => {
         }
     };
 
-    // const content = () => {
-    //     // if (page === 'home') {
-    //     //     return <div>Home Page</div>;
-    //     // } else if (page === 'search') {
-    //     //     return (
-    //     //         <div>
-    //     //             <SearchBar setMovies={setMovies} />
-    //     //             <SearchDisplay movies={movies}
-    //     //                 setPage={setPage}
-    //     //                 setMovieToView={setMovieToView}
-    //     //                 watchlist={watchlist}
-    //     //                 setWatchlist={setWatchlist}
-    //     //                 setNotify={setNotifyMessage}/>
-    //     //         </div>
-    //     //     );
-    //     // } else if (page === 'watchlist') {
-    //     //     return <Watchlist watchlist={watchlist} setMovieToView={setMovieToView} setPage={setPage} username={username} />;
-    //     // } else if (page === 'movie') {
-    //     //     return <MovieInfo id={movieToView}
-    //     //         watchlist={watchlist}
-    //     //         setWatchlist={setWatchlist}
-    //     //         setDiary={setDiary}
-    //     //         setNotifyMessage={setNotifyMessage}
-    //     //         setErrorMessage={setErrorMessage}/>;
-    //     // } else if (page === 'diary') {
-    //     //     return <Diary diary={diary} setMovieToView={setMovieToView} setPage={setPage} />;
-    //     // }
-
-    //     // return (
-    //     //     <Switch>
-    //     //         <Route path="/search">
-    //     //             <div>
-    //     //                 <SearchBar setMovies={setMovies} />
-    //     //                 <SearchDisplay movies={movies}
-    //     //                     setPage={setPage}
-    //     //                     setMovieToView={setMovieToView}
-    //     //                     watchlist={watchlist}
-    //     //                     setWatchlist={setWatchlist}
-    //     //                     setNotify={setNotifyMessage}/>
-    //     //             </div>
-    //     //         </Route>
-    //     //         <Route path="/watchlist">
-    //     //             <Watchlist watchlist={watchlist} setMovieToView={setMovieToView} setPage={setPage} username={username} />
-    //     //         </Route>
-    //     //         <Route path="/movie/:id">
-    //     //             <MovieInfo
-    //     //                 watchlist={watchlist}
-    //     //                 setWatchlist={setWatchlist}
-    //     //                 setDiary={setDiary}
-    //     //                 setNotifyMessage={setNotifyMessage}
-    //     //                 setErrorMessage={setErrorMessage}/>
-    //     //         </Route>
-    //     //         <Route path="/diary">
-    //     //             <Diary diary={diary} setMovieToView={setMovieToView} setPage={setPage} />
-    //     //         </Route>
-    //     //     </Switch>
-    //     // );
-    // };
-
     return (
         <div className="container">
             <Menu username={user.username}

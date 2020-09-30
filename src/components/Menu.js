@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const Menu = (props) => {
     const padding = {
@@ -10,7 +10,6 @@ const Menu = (props) => {
     const toPage = (page) => (event) => {
         event.preventDefault();
         props.setPage(page);
-        // props.setMovies([]);
         props.setMovieToView(null);
     };
 
@@ -33,27 +32,6 @@ const Menu = (props) => {
             </Navbar>
         </div>
     );
-
-    // return (
-    //     <div>
-    //         <Navbar bg="dark" expand="lg" variant="dark">
-    //             <Navbar.Brand href="#" >AMDb</Navbar.Brand>
-    //             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-    //             <Navbar.Collapse id="responsive-navbar-nav">
-    //                 <Nav className="mr-auto">
-    //                     <Link style={padding} to="/">Home</Link>
-    //                     <Link style={padding} to="/search">Search</Link>
-    //                     <Link style={padding} to="/watchlist">Watchlist ({props.watchlist.length})</Link>
-    //                     <Link style={padding} to="/diary">Diary ({props.diary.length})</Link>
-    //                 </Nav>
-    //                 <Nav>
-    //                     <Nav.Link href="/#">{props.username}</Nav.Link>
-    //                     <Nav.Link onClick={props.handleLogout}>Log out</Nav.Link>
-    //                 </Nav>
-    //             </Navbar.Collapse>
-    //         </Navbar>
-    //     </div>
-    // );
 };
 
 export default Menu;

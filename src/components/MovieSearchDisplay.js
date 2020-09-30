@@ -23,16 +23,6 @@ const MovieSearchDisplay = ({ title, release_date, poster_path, id, setPage, set
                     {title} ({release_date ? release_date.split('-')[0] : 'unreleased'})
                 </h3>
             </a>
-            {/* <h3>
-                {displayPoster(poster_path)}
-                {title} ({release_date ? release_date.split('-')[0] : 'unreleased'})
-            </h3> */}
-            {/* <div>
-                {description}
-            </div> */}
-            {/* <div>
-                <button onClick={toMovie} >view details</button>
-            </div> */}
             <div>
                 <WatchlistButton id={id}
                     title={title}

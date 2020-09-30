@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const Diary = ({ diary , setMovieToView, setPage }) => {
     const displayPoster = (posterSource) => {
@@ -14,8 +14,6 @@ const Diary = ({ diary , setMovieToView, setPage }) => {
         setMovieToView(a.movieId);
         setPage('movie');
     };
-
-    // const logged_date = Date(item.dateLogged).toString().split(' ');
 
     const getDate = (date) => {
         return date.split(' ');
@@ -33,21 +31,6 @@ const Diary = ({ diary , setMovieToView, setPage }) => {
             }
         </ListGroup>
     );
-
-    // return (
-    //     <ListGroup>
-    //         {diary.sort((a, b) => Date.parse(b.dateLogged) - Date.parse(a.dateLogged)).map(item =>
-    //             <Link key ={item._id} to={`/movie/${item.movieId}`}>
-    //                 <ListGroup.Item >
-    //                     <p>Watched: {`${getDate(item.dateLogged)[1]} ${getDate(item.dateLogged)[2]} ${getDate(item.dateLogged)[3]}`}</p>
-    //                     {displayPoster(item.posterPath)}
-    //                     <h3>{item.title} ({item.releaseDate ? item.releaseDate.split('-')[0] : 'unreleased'}) </h3>
-    //                 </ListGroup.Item>
-    //             </Link>
-    //         )
-    //         }
-    //     </ListGroup>
-    // );
 };
 
 export default Diary;

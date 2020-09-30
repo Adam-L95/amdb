@@ -26,24 +26,6 @@ const LoginForm = (props) => {
                     />
                     <Button variant="primary" id="login-button" type="submit">login</Button>
                 </Form.Group>
-                {/* <div>
-                    <input
-                        type="text"
-                        id="username"
-                        value={props.username}
-                        name="Username"
-                        onChange={props.handleUsernameChange}
-                    />
-                </div>
-                <div>
-                    <input
-                        type="password"
-                        id="password"
-                        value={props.password}
-                        name="Password"
-                        onChange={props.handlePasswordChange}
-                    />
-                </div> */}
             </Form>
         </div>
     );
