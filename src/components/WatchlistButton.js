@@ -12,14 +12,14 @@ const WatchlistButton = ({ id, title, poster_path, release_date, watchlist, setW
             poster_path: poster_path,
             release_date: release_date
         };
-        console.log(toAdd);
+        // console.log(toAdd);
         setNotify(`'${title}' added to watchlist`);
         setTimeout(() => {
             setNotify(null);
         }, 3000);
         userService.addToWatchlist(toAdd)
             .then(returnedEntry => {
-                console.log(returnedEntry);
+                // console.log(returnedEntry);
                 setWatchlist(returnedEntry);
             });
 
@@ -33,7 +33,7 @@ const WatchlistButton = ({ id, title, poster_path, release_date, watchlist, setW
             setError(null);
         }, 3000);
         userService.removeFromWatchlist(id).then(retrunedObject => {
-            console.log(retrunedObject);
+            // console.log(retrunedObject);
             setWatchlist(retrunedObject.data);
         });
     };

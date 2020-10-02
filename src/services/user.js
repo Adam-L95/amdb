@@ -13,9 +13,9 @@ const addToWatchlist = async (movie) => {
         headers: { Authorization: token }
     };
 
-    console.log(config);
+    // console.log(config);
 
-    console.log(movie);
+    // console.log(movie);
 
     const response = await axios.post(`${url}/watchlist`, movie, config);
     return response.data;
@@ -26,9 +26,9 @@ const addToDiary = async (movie) => {
         headers: { Authorization: token }
     };
 
-    console.log(config);
+    // console.log(config);
 
-    console.log(movie);
+    // console.log(movie);
 
     const response = await axios.post(`${url}/diary`, movie, config);
     return response.data;

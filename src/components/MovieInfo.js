@@ -1,14 +1,19 @@
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useEffect, useState } from 'react';
 import WatchlistButton from './WatchlistButton';
 import DiaryButton from './DiaryButton';
 import movieService from '../services/movies';
 import { Button, ButtonGroup, ToggleButton, ListGroup, Spinner } from 'react-bootstrap';
+import { useParams, useHistory } from 'react-router-dom';
 
-const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, setErrorMessage }) => {
+const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErrorMessage, user }) => {
     const [details, setDetails] = useState({});
     const [credits, setCredits] = useState({});
     const [view, setView] = useState('cast');
     const [viewAll, setViewAll] = useState(false);
+
+    const id = useParams().id;
+
+    const history = useHistory();
 
     useEffect(() => {
         movieService.getSelected(id).then(detail => {
@@ -21,6 +26,11 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
         event.preventDefault();
         setViewAll(false);
         setView(page);
+    };
+
+    const toLogin = (event) => {
+        event.preventDefault();
+        history.push('/login');
     };
 
     const viewOption = (event) => {
@@ -204,22 +214,31 @@ const MovieInfo = ({ id, watchlist, setWatchlist, setDiary, setNotifyMessage, se
             <div>
                 {viewHeader()}
                 {viewDescription()}
-                <DiaryButton id={details.id}
-                    title={details.title}
-                    poster_path={details.poster_path}
-                    release_date={details.release_date}
-                    watchlist={watchlist}
-                    setWatchlist={setWatchlist}
-                    setDiary={setDiary}
-                    setNotify={setNotifyMessage} />
-                <WatchlistButton id={details.id}
-                    title={details.title}
-                    poster_path={details.poster_path}
-                    release_date={details.release_date}
-                    watchlist={watchlist}
-                    setWatchlist={setWatchlist}
-                    setNotify={setNotifyMessage}
-                    setError={setErrorMessage} />
+                {user ? <div>
+                    <DiaryButton id={details.id}
+                        title={details.title}
+                        poster_path={details.poster_path}
+                        release_date={details.release_date}
+                        watchlist={watchlist}
+                        setWatchlist={setWatchlist}
+                        setDiary={setDiary}
+                        setNotify={setNotifyMessage} />
+                    <WatchlistButton id={details.id}
+                        title={details.title}
+                        poster_path={details.poster_path}
+                        release_date={details.release_date}
+                        watchlist={watchlist}
+                        setWatchlist={setWatchlist}
+                        setNotify={setNotifyMessage}
+                        setError={setErrorMessage} />
+                </div>
+                    :
+                    <div>
+                        <Button onClick={toLogin} variant="outline-secondary">
+                            Log in to review and add to watchlist
+                        </Button>
+                    </div>
+                }
                 <ButtonGroup toggle>
                     {radios.map((radio, index) => (
                         <ToggleButton key={index}

@@ -13,7 +13,7 @@ const DiaryButton = ({ id, title, poster_path, release_date, setWatchlist, setDi
         };
 
         userService.addToDiary(toAdd).then(retrunedObject => {
-            console.log(retrunedObject);
+            // console.log(retrunedObject);
             setDiary(retrunedObject);
             remove();
         });
@@ -21,7 +21,7 @@ const DiaryButton = ({ id, title, poster_path, release_date, setWatchlist, setDi
 
     const remove = () => {
         userService.removeFromWatchlist(id).then(retrunedObject => {
-            console.log(retrunedObject);
+            // console.log(retrunedObject);
             setWatchlist(retrunedObject.data);
         });
     };

@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieSearchDisplay from './MovieSearchDisplay';
+import movieService from '../services/movies';
 import { ListGroup } from 'react-bootstrap';
+import { useParams, useHistory } from 'react-router-dom';
 
-const SearchDisplay = ({ movies, setMovieToView, setPage, watchlist, setWatchlist, setNotify }) => {
-    if (movies.length === 0){
-        return (
-            <div></div>
-        );
-    } else {
+const SearchDisplay = () => {
+    const [movies, setMovies] = useState([]);
+    const searchTerm = useParams().searchTerm;
+    useEffect(() => {
+        movieService.searchFor(searchTerm).then(movies => setMovies(movies));
+        console.log(searchTerm);
+    }, []);
+
+    // const searchTerm = useParams().searchTerm;
+
+    // movieService.searchFor(searchTerm).then(movies => setMovies(movies));
+
+    if (movies.length !== 0) {
+
         return (
             <div>
                 <h4>
-                    Results:
+                Results:
                 </h4>
                 <ListGroup>
                     {movies.sort((a, b) =>
@@ -20,15 +30,12 @@ const SearchDisplay = ({ movies, setMovieToView, setPage, watchlist, setWatchlis
                             title={movie.title}
                             release_date={movie.release_date}
                             poster_path={movie.poster_path}
-                            id={movie.id}
-                            setMovieToView={setMovieToView}
-                            setPage={setPage}
-                            watchlist={watchlist}
-                            setWatchlist={setWatchlist}
-                            setNotify={setNotify} />)}
+                            id={movie.id} />)}
                 </ListGroup>
             </div>
         );
+    } else {
+        return null;
     }
 };
 

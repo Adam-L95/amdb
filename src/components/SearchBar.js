@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import movieService from '../services/movies';
 import { Form, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
-const SearchBar = ({ setMovies }) => {
+const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState('');
+
+    const history = useHistory();
 
     const getSearch = (event) => {
         event.preventDefault();
-        // setQuery(searchTerm);
-        movieService.searchFor(searchTerm).then(movies => setMovies(movies));
-
-
+        const searchFor = searchTerm.replace(/\s+/g, '+');
+        // setSearchTerm('');
+        console.log(searchFor);
+        history.push(`/search/${searchFor}`);
     };
 
     return (

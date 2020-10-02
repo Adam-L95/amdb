@@ -2,12 +2,6 @@ import axios from 'axios';
 
 const url = '/api/search';
 
-let token = null;
-
-const setToken = newToken => {
-    token = `bearer ${newToken}`;
-};
-
 const getAll = () => {
     const request = axios.get(url);
     return request.then(response => response.data);
@@ -30,4 +24,4 @@ const getCredits = (id) => {
     return request.then(response => response.data);
 };
 
-export default { getAll, getSelected, searchFor, getCredits, setToken };
+export default { getAll, getSelected, searchFor, getCredits };
