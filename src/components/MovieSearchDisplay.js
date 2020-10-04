@@ -1,6 +1,4 @@
 import React from 'react';
-// import WatchlistButton from './WatchlistButton';
-import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MovieSearchDisplay = ({ title, release_date, poster_path, id }) => {
@@ -9,12 +7,6 @@ const MovieSearchDisplay = ({ title, release_date, poster_path, id }) => {
             return <img src={`http://image.tmdb.org/t/p/w92/${posterSource}`} alt={`movie #${id} poster`}/>;
         }
     };
-
-    // const toMovie = (event) => {
-    //     event.preventDefault();
-    //     setMovieToView(id);
-    //     setPage('movie');
-    // };
 
     return (
         <Link to={`/movies/${id}`} className="list-group-item-action">

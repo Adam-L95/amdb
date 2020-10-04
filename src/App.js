@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 // Components
 import Menu from './components/Menu';
-import SearchBar from './components/SearchBar';
 import SearchDisplay from './components/SearchDisplay';
 import MovieInfo from './components/MovieInfo';
 import Watchlist from './components/Watchlist';
@@ -11,6 +10,7 @@ import Notification from './components/Notification';
 import Error from './components/Error';
 import LoginForm from './components/LoginForm';
 import CreateUserForm from './components/CreateUserForm';
+import HomePage from './components/HomePage';
 
 // Services
 // import movieService from './services/movies';
@@ -22,7 +22,7 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 
 const App = () => {
     // Logged in user states
-    const [movies, setMovies] = useState([]);
+    // const [movies, setMovies] = useState([]);
     const [user, setUser] = useState(null);
     const [watchlist, setWatchlist] = useState([]);
     const [diary, setDiary] = useState([]);
@@ -197,25 +197,11 @@ const App = () => {
                 </Route>
 
                 <Route path="/search/:searchTerm">
-                    <div>
-                        <SearchBar />
-                        <SearchDisplay />
-                    </div>
-                </Route>
-
-                <Route path="/search">
-                    <div>
-                        <SearchBar />
-                        {/* <SearchDisplay
-                            movies={movies}
-                            watchlist={watchlist}
-                            setWatchlist={setWatchlist}
-                            setNotify={setNotifyMessage}/> */}
-                    </div>
+                    <SearchDisplay />
                 </Route>
 
                 <Route path="/">
-                    <div>Home Page</div>
+                    <HomePage />
                 </Route>
             </Switch>
         );
@@ -226,7 +212,6 @@ const App = () => {
             <Menu user={user}
                 watchlist={watchlist}
                 diary={diary}
-                setMovies={setMovies}
                 handleLogout={handleLogout} />
             <Notification message={notifyMessage} />
             <Error message={errorMessage} />

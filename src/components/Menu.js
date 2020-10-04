@@ -1,17 +1,9 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 import { Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Menu = (props) => {
-    // const padding = {
-    //     paddingRight: 5
-    // };
-
-    // const toPage = (page) => (event) => {
-    //     event.preventDefault();
-    //     props.setPage(page);
-    //     props.setMovieToView(null);
-    // };
 
     return (
         <div>
@@ -20,9 +12,6 @@ const Menu = (props) => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Link to="/search" className="nav-link">
-                            Search
-                        </Link>
                         {props.user ?
                             <Link to="/watchlist" className="nav-link">
                                 Watchlist ({props.watchlist.length})
@@ -43,6 +32,7 @@ const Menu = (props) => {
                         {props.user ? <Nav.Link onClick={props.handleLogout}>Log out</Nav.Link> : null}
                     </Nav>
                 </Navbar.Collapse>
+                <SearchBar />
             </Navbar>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MovieSearchDisplay from './MovieSearchDisplay';
 import movieService from '../services/movies';
 import { ListGroup } from 'react-bootstrap';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const SearchDisplay = () => {
     const [movies, setMovies] = useState([]);
@@ -20,9 +20,11 @@ const SearchDisplay = () => {
 
         return (
             <div>
+                <br />
                 <h4>
-                Results:
+                    Results for '{searchTerm.replaceAll('+', ' ')}':
                 </h4>
+                <br/>
                 <ListGroup>
                     {movies.sort((a, b) =>
                         a.popularity < b.popularity ? 1 : a.popularity > b.popularity ? -1 : 0)
@@ -35,7 +37,14 @@ const SearchDisplay = () => {
             </div>
         );
     } else {
-        return null;
+        return (
+            <div>
+                <h4>
+                    No Results
+                </h4>
+                No results were found for your search term
+            </div>
+        );
     }
 };
 

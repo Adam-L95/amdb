@@ -9,12 +9,6 @@ const Watchlist = ({ watchlist }) => {
         }
     };
 
-    // const toMovie = (a) => (event) => {
-    //     event.preventDefault();
-    //     setMovieToView(a.movieId);
-    //     setPage('movie');
-    // };
-
     return (
         <div>
             <h3>Your Watchlist</h3>

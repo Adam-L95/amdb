@@ -9,12 +9,6 @@ const Diary = ({ diary }) => {
         }
     };
 
-    // const toMovie = (a) => (event) => {
-    //     event.preventDefault();
-    //     setMovieToView(a.movieId);
-    //     setPage('movie');
-    // };
-
     const getDate = (date) => {
         return date.split(' ');
     };

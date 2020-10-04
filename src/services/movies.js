@@ -7,6 +7,11 @@ const getAll = () => {
     return request.then(response => response.data);
 };
 
+const getNowPlaying = () => {
+    const request = axios.get(`${url}/movie/now_playing`);
+    return request.then(response => response.data.results);
+};
+
 const getSelected = (id) => {
     const request = axios.get(`${url}/movie/${id}`);
     return request.then(response => response.data);
@@ -24,4 +29,4 @@ const getCredits = (id) => {
     return request.then(response => response.data);
 };
 
-export default { getAll, getSelected, searchFor, getCredits };
+export default { getAll, getNowPlaying, getSelected, searchFor, getCredits };
