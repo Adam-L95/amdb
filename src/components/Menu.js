@@ -28,7 +28,7 @@ const Menu = (props) => {
                         }
                     </Nav>
                     <Nav>
-                        {props.user ? <Nav.Link>{props.user.username}</Nav.Link> : <Link className="nav-link" to="/login">login</Link>}
+                        {props.user ? <div className='nav-link'>{props.user.username}</div> : <Link className="nav-link" to="/login">login</Link>}
                         {props.user ? <Nav.Link onClick={props.handleLogout}>Log out</Nav.Link> : null}
                     </Nav>
                 </Navbar.Collapse>

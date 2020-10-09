@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MovieSearchDisplay from './MovieSearchDisplay';
 import movieService from '../services/movies';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 const SearchDisplay = () => {
@@ -9,7 +9,6 @@ const SearchDisplay = () => {
     const searchTerm = useParams().searchTerm;
     useEffect(() => {
         movieService.searchFor(searchTerm).then(movies => setMovies(movies));
-        console.log(searchTerm);
     }, []);
 
     // const searchTerm = useParams().searchTerm;
@@ -25,15 +24,17 @@ const SearchDisplay = () => {
                     Results for '{searchTerm.replaceAll('+', ' ')}':
                 </h4>
                 <br/>
-                <ListGroup>
-                    {movies.sort((a, b) =>
-                        a.popularity < b.popularity ? 1 : a.popularity > b.popularity ? -1 : 0)
-                        .map(movie => <MovieSearchDisplay key={movie.id}
-                            title={movie.title}
-                            release_date={movie.release_date}
-                            poster_path={movie.poster_path}
-                            id={movie.id} />)}
-                </ListGroup>
+                <Table striped>
+                    <tbody>
+                        {movies.sort((a, b) =>
+                            a.popularity < b.popularity ? 1 : a.popularity > b.popularity ? -1 : 0)
+                            .map(movie => <MovieSearchDisplay key={movie.id}
+                                title={movie.title}
+                                release_date={movie.release_date}
+                                poster_path={movie.poster_path}
+                                id={movie.id} />)}
+                    </tbody>
+                </Table>
             </div>
         );
     } else {

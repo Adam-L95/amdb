@@ -29,4 +29,9 @@ const getCredits = (id) => {
     return request.then(response => response.data);
 };
 
-export default { getAll, getNowPlaying, getSelected, searchFor, getCredits };
+const getSimilar = (id) => {
+    const request = axios.get(`${url}/movie/similar_movies/${id}`);
+    return request.then(response => response.data.results);
+};
+
+export default { getAll, getNowPlaying, getSelected, searchFor, getCredits, getSimilar };

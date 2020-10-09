@@ -9,12 +9,14 @@ const MovieSearchDisplay = ({ title, release_date, poster_path, id }) => {
     };
 
     return (
-        <Link to={`/movies/${id}`} className="list-group-item-action">
-            <h3>
-                {displayPoster(poster_path)}
-                {title} ({release_date ? release_date.split('-')[0] : 'unreleased'})
-            </h3>
-        </Link>
+        <tr>
+            <td>
+                <Link to={`/movies/${id}`} className="td">
+                    {displayPoster(poster_path)}
+                    {title} ({release_date ? release_date.split('-')[0] : 'unreleased'})
+                </Link>
+            </td>
+        </tr>
     );
 };
 

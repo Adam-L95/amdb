@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WatchlistButton from './WatchlistButton';
 import DiaryButton from './DiaryButton';
+import FilmCard from './FilmCard';
 import movieService from '../services/movies';
 import { Button, ButtonGroup, ToggleButton, ListGroup, Spinner } from 'react-bootstrap';
 import { useParams, useHistory } from 'react-router-dom';
@@ -10,16 +11,21 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
     const [credits, setCredits] = useState({});
     const [view, setView] = useState('cast');
     const [viewAll, setViewAll] = useState(false);
+    const [similarMovies, setSimilarMovies] = useState([]);
 
     const id = useParams().id;
 
     const history = useHistory();
 
     useEffect(() => {
+        setView('cast');
         movieService.getSelected(id).then(detail => {
             setDetails(detail);});
         movieService.getCredits(id).then(credit => {
             setCredits(credit);});
+        movieService.getSimilar(id).then(movie => {
+            setSimilarMovies(movie);
+        });
     }, [id]);
 
     const toView = (page) => (event) => {
@@ -36,6 +42,15 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
     const viewOption = (event) => {
         event.preventDefault();
         setViewAll(!viewAll);
+    };
+
+    const getDate = (date) => {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const rDate = new Date(date);
+
+        return `${monthNames[rDate.getMonth()]} ${rDate.getDate()} ${rDate.getFullYear()}`;
     };
 
     const viewCast = () => {
@@ -101,7 +116,7 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
         if (details) {
             return (
                 <ListGroup>
-                    <ListGroup.Item>Release date: {details.release_date}</ListGroup.Item>
+                    <ListGroup.Item>Release date: {getDate(details.release_date)}</ListGroup.Item>
                     <ListGroup.Item>
                         <ListGroup>
                             <div>Country:</div>
@@ -158,6 +173,17 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
         }
     };
 
+    const viewSimilar = () => {
+        if (similarMovies.length > 0) {
+            return (
+                <ListGroup horizontal>
+                    {similarMovies.slice(0,8).map(movie =>
+                        <FilmCard className='list-group-item' key={movie.id} movie={movie} cardSize='8rem' showCaption={false} />)}
+                </ListGroup>
+            );
+        }
+    };
+
 
     const content = () => {
         if (view === 'cast') {
@@ -179,6 +205,8 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
             </div>;
         } else if (view === 'genre') {
             return viewGenre();
+        } else if(view === 'similar') {
+            return viewSimilar();
         }
     };
 
@@ -186,7 +214,8 @@ const MovieInfo = ({ watchlist, setWatchlist, setDiary, setNotifyMessage, setErr
         { name: 'Cast', value: 'cast' },
         { name: 'Crew', value: 'crew' },
         { name: 'Details', value: 'details' },
-        { name: 'Genre', value: 'genre' }
+        { name: 'Genre', value: 'genre' },
+        { name: 'Similar', value: 'similar' }
     ];
 
     const viewHeader = () => {
